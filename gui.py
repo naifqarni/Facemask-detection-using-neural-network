@@ -18,7 +18,7 @@ import graphs
 
 
 def detect_image():
-    filename = filedialog.askopenfilename(initialdir="/",title="Select a File",filetypes=(("images files","*.jpg*"),("all files","*.*")))
+    filename = filedialog.askopenfilename(initialdir="/",title="Select a File",filetypes=(("images files","*.*"),("images","*.*")))
 
     # Change label contents
     label_file_explorer.configure(text="File Opened: "+filename)
@@ -32,16 +32,16 @@ def webcam():
 
 
 def vid():
-    filename = filedialog.askopenfilename(initialdir="/", title="Select a File", filetypes=(("images files", "*.mp4*"),("video files","*.*")))
+    filename = filedialog.askopenfilename(initialdir="/", title="Select a File", filetypes=(("images files", "*.*"),("video files","*.*")))
 
     # if a file not selected do not do any thing
     if filename != None and filename != '':
         mask_from_video.webcam(filename)
 
 
-def train_and_wait(b_size, epocc, l_rate):
+def train_and_wait(b_size, epocc, l_rate,val,test):
     model_trainer.train(int(b_size.get()), int(
-        epocc.get()), float(l_rate.get()))
+        epocc.get()), float(l_rate.get()),int(val.get()),int(test.get()))
 
 
 def train():
@@ -61,8 +61,16 @@ def train():
     e3.pack()
     btn = Button(filewin,
                  text="Start Traing!",
-                 command=lambda: train_and_wait(e1, e2, e3))
+                 command=lambda: train_and_wait(e1, e2, e3,e4,e5))
+    e4 = Entry(filewin)
+    e4.insert(2, 'enter tha valdation size')
+    e4.pack()
+    e5 = Entry(filewin)
+    e5.insert(2, 'enter the test size')
+    e4.pack()
+    e5.pack()
     btn.pack()
+
 
 def test_conf_mat():
     filename = filedialog.askdirectory()

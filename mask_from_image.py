@@ -88,18 +88,26 @@ def image_Detection(image_path):
 
             # determine the class text and color we'll use to draw
             # the bounding box and text
-            text = "Mask" if mask > withoutMask else "No Mask"
-            color = (0, 254, 254) if text == "No Mask" else (255, 0, 0)
-
-            # include the probability in the text
-            text = "{}: {:.2f}%".format(text, max(mask, withoutMask) * 100)
+            if mask >0.7:
+                text = "Mask" 
+                color = (255, 0, 0)
+            elif withoutMask>0.7:
+                text = 'No Mask'
+                color = (0, 254, 254) 
+            else:
+                text = 'cant detect'
+                color = (0, 0, 255)
+            # include the probability in the predicted image 
+            text = "{}: {:.3f}%".format(text, max(mask, withoutMask) * 100)
 
            
             cv2.putText(image, text, (X, Y - 10),
                         cv2.QT_FONT_NORMAL, 0.35, color, 2)
             cv2.rectangle(image, (X, Y), (X_w, Y_h), color, 2)
 
-    # show the output image
-    cv2.imshow("Output", image)
+    cv2.imshow("face detection", image)
+
     cv2.waitKey(0)
+
+
 
