@@ -3,11 +3,10 @@ face mask detection project for 381
 
 
 ## how to run:
-clone or download the code
 
- 1. List item
+ 
 
-**install the following libraries** 
+1. **install the following libraries** 
  - opencv-python
  - tensorflow
  - keras
